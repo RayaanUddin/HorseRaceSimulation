@@ -66,12 +66,19 @@ public class Race
             //print the race positions
             printRace();
             
-            //if any of the three horses has won the race is finished
+            //if any of the three horses has won or all are fallen the race is finished
+            boolean allFallen = true;
             for (Horse horse : lanes) {
                 if (raceWonBy(horse)) {
                     System.out.println("And the winner is "+ horse.getName());
                     finished = true;
+                } else if (allFallen && !horse.hasFallen()) {
+                    allFallen = false;
                 }
+            }
+            if (allFallen) {
+                System.out.println("All horses have fallen");
+                finished = true;
             }
            
             //wait for 100 milliseconds
@@ -204,12 +211,13 @@ public class Race
 
     public static void main(String[] args) {
         Race race = new Race(10, 3);
-        Horse horse1 = new Horse('A', "HorseA", 0.5);
-        Horse horse2 = new Horse('B', "HorseB", 0.5);
-        Horse horse3 = new Horse('C', "HorseC", 0.5);
+        Horse horse1 = new Horse('A', "HorseA", 0);
+        Horse horse2 = new Horse('B', "HorseB", 0);
+        Horse horse3 = new Horse('C', "HorseC", 0);
         race.addHorse(horse1, 1);
         race.addHorse(horse2, 2);
         race.addHorse(horse3, 3);
         race.startRace();
     }
 }
+
