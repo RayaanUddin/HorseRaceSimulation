@@ -6,7 +6,7 @@ import java.lang.Math;
  * for a given distance
  * 
  * @author McFarewell and Uddin
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class Race
 {
@@ -69,6 +69,7 @@ public class Race
             //if any of the three horses has won the race is finished
             for (Horse horse : lanes) {
                 if (raceWonBy(horse)) {
+                    System.out.println("And the winner is "+ horse.getName());
                     finished = true;
                 }
             }
