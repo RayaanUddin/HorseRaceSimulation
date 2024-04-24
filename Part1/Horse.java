@@ -35,11 +35,6 @@ public class Horse {
         horseFallen = false;
     }
 
-    // If horse wins, increase confidence by 10%
-    public void win() {
-        horseConfidence = horseConfidence * 1.1;
-    }
-
     public void moveForward() {
         horseDistance++;
     }
