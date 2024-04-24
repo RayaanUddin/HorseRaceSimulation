@@ -4,7 +4,7 @@
  * distance, if fallen, confidence and holds it symbol to be used.
  * 
  * @author Rayaan Uddin
- * @version 1.0
+ * @version 1.1
  */
 public class Horse {
     // Fields of class Horse
@@ -20,8 +20,8 @@ public class Horse {
      */
     public Horse(char horseSymbol, String horseName, double horseConfidence) {
         this.horseName = horseName;
-        this.horseSymbol = horseSymbol;
-        this.horseConfidence = horseConfidence;
+        setSymbol(horseSymbol);
+        setConfidence(horseConfidence);
     }
 
     // Mutator methods
@@ -72,5 +72,16 @@ public class Horse {
     public boolean hasFallen() {
         return horseFallen;
     }
+
+    public static void main(String[] args) {
+        Horse horse2 = new Horse('A', "Horse2", 1.2);
+        System.out.println(horse2.getConfidence());
+
+    }
+
+
 }
+
+
+
 
