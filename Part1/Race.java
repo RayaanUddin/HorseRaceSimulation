@@ -171,7 +171,7 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print('\u2322');
+            System.out.print("\u001B[31m" + '\u0078' + "\u001B[0m");
         }
         else
         {
@@ -200,5 +200,16 @@ public class Race
             System.out.print(aChar);
             i = i + 1;
         }
+    }
+
+    public static void main(String[] args) {
+        Race race = new Race(10, 3);
+        Horse horse1 = new Horse('A', "HorseA", 0.5);
+        Horse horse2 = new Horse('B', "HorseB", 0.5);
+        Horse horse3 = new Horse('C', "HorseC", 0.5);
+        race.addHorse(horse1, 1);
+        race.addHorse(horse2, 2);
+        race.addHorse(horse3, 3);
+        race.startRace();
     }
 }
