@@ -39,6 +39,11 @@ public class Horse {
         horseDistance++;
     }
 
+    // Added for part 2
+    public void setDistance(int distance) {
+        horseDistance = distance;
+    }
+
     public void setConfidence(double newConfidence) {
         if (newConfidence <= 1 && newConfidence >= 0) {
             horseConfidence = newConfidence;
