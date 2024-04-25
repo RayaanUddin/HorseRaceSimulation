@@ -81,7 +81,8 @@ public class Race
                 if (raceWonBy(horse)) {
                     System.out.println("And the winner is "+ horse.getName());
                     finished = true;
-                } else if (allFallen && !horse.hasFallen()) {
+                }
+                if (allFallen && !horse.hasFallen()) {
                     allFallen = false;
                 }
             }
@@ -217,13 +218,14 @@ public class Race
     }
 
     public static void main(String[] args) {
-        Race race = new Race(10, 4);
-        Horse horse1 = new Horse('A', "HorseA", 0);
-        Horse horse2 = new Horse('B', "HorseB", 0);
-        Horse horse3 = new Horse('C', "HorseC", 0);
+        Race race = new Race(10, 3);
+        Horse horse1 = new Horse('A', "HorseA", 0.5);
+        Horse horse2 = new Horse('B', "HorseB", 0.4);
+        Horse horse3 = new Horse('C', "HorseC", 0.8);
         race.addHorse(horse1, 1);
         race.addHorse(horse2, 2);
-        race.addHorse(horse3, 4);
+        race.addHorse(horse3, 3);
+        race.startRace();
         race.startRace();
     }
 }
