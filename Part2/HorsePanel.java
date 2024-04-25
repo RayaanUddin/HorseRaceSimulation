@@ -6,33 +6,49 @@ public class HorsePanel extends JPanel {
     public Horse horse;
     static boolean racing = false;
     static double maxSpeed = 20.0; // Maximum speed of any horse is 20m/s
-    static int refreshRate = 20; // Refresh rate of the panel (ms)
+    private double time = 0; // Time in seconds.
     private JLabel laneLabel;
     private String laneName;
+    public boolean won = false;
+    private JFrame frame;
+    private Color horseColor;
 
-    public HorsePanel(JLabel laneLabel, Horse horse) {
+    public HorsePanel(JLabel laneLabel, Horse horse, JFrame frame, Color color) {
         setBackground(Color.GREEN);
         racing = false;
         this.laneLabel = laneLabel;
         laneName = laneLabel.getText();
         this.horse = horse;
+        this.frame = frame;
         refreshLaneLabel();
+        horseColor = color;
     }
 
     private void refreshLaneLabel() {
         laneLabel.setText(laneName + " | " + horse.getName() + " (Current confidence " + ((int)((horse.getConfidence()*100.0)+0.5)/100.0) + ")");
     }
 
-    public void startRace() {
-        racing = true;
+    public void reset() {
         horseX = 0;
+        time = 0;
         horse.goBackToStart();
+        won = false;
+        racing = false;
+        repaint();
+    }
+
+    public void startRace() {
+        reset();
+        racing = true;
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 while (racing) {
                     move();
                     try {
-                        Thread.sleep(refreshRate);
+                        Thread.sleep(20);
+                        if (!horse.hasFallen()) {
+                            time = time + 0.5;
+                        }
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -50,38 +66,42 @@ public class HorsePanel extends JPanel {
     }
 
     private void drawHorse(Graphics g) {
-        // Draw horse body
-        g.setColor(new Color(160, 82, 45)); // Brown color
+        // Body
+        g.setColor(horseColor);
         g.fillRect(horseX + 5, getHeight() / 2 - 10, 40, 20);
 
-        // Draw horse head
-        g.setColor(new Color(160, 82, 45)); // Brown color
+        // Head
+        g.setColor(horseColor);
         g.fillRect(horseX + 45, getHeight() / 2 - 17, 20, 20);
 
-        // Draw horse ears
-        g.setColor(new Color(139, 69, 19)); // Saddle brown color
+        // Ears
+        g.setColor(horseColor);
         int[] earX = {horseX + 65, horseX + 65, horseX + 75};
         int[] earY = {getHeight() / 2 - 17, getHeight() / 2 - 25, getHeight() / 2 - 25};
         g.fillPolygon(earX, earY, 3);
 
-        // Draw horse eyes
+        // Eyes
         g.setColor(Color.BLACK);
         g.fillOval(horseX + 55, getHeight() / 2 - 13, 5, 5);
 
-        // Draw horse legs
+        // Legs
         if (horse.hasFallen()) {
             g.setColor(Color.RED);
             g.fillRect((horseX + 5)-20, getHeight() / 2 + 10, 30, 10);
             g.fillRect(horseX + 35, getHeight() / 2 + 10, 30, 10);
         } else {
-            g.setColor(new Color(160, 82, 45)); // Brown color
+            g.setColor(horseColor);
             g.fillRect(horseX + 5, getHeight() / 2 + 10, 10, 30);
             g.fillRect(horseX + 35, getHeight() / 2 + 10, 10, 30);
         }
 
-        // Draw horse tail
-        g.setColor(new Color(160, 82, 45)); // Brown color
+        // Tail
+        g.setColor(horseColor);
         g.fillRect(horseX, getHeight() / 2 - 5, 5, 10);
+
+        // Saddle
+        g.setColor(new Color(153, 153, 102)); // Saddle brown color
+        g.fillRect(horseX + 15, getHeight() / 2 - 7, 30, 10);
     }
 
     // Move the horse
@@ -91,21 +111,24 @@ public class HorsePanel extends JPanel {
         }
 
         horseX += (((double) getWidth()/ (double) StartFrame.trackLength) * maxSpeed) * Math.random() * horse.getConfidence();
+
         if (horseX > getWidth()) {
             // if position is at the end of the track
             if (horseX > getWidth()) {
-                System.out.println("And the winner is "+ horse.getName());
-                refreshLaneLabel();
+                won = true;
                 horse.setConfidence(horse.getConfidence() * 1.1);
                 if (horse.getConfidence() > 1.0) {
                     horse.setConfidence(1.0);
                 } else if (horse.getConfidence() == 0.0) {
                     horse.setConfidence(0.1);
                 }
-                //JOptionPane.showMessageDialog(frame, horse.getName() + "has won");
+                refreshLaneLabel();
                 racing = false;
+                JOptionPane.showMessageDialog(frame, horse.getName() + " has won");
+                System.out.println(horse.getName() + " has won");
             }
         }
+        horse.setDistance((int) getHorseDistance());
         double controller = 0.1;
         if (getWidth() < StartFrame.trackLength) {
             controller = ((double) getWidth()*0.01/ (double) StartFrame.trackLength);
@@ -117,5 +140,16 @@ public class HorsePanel extends JPanel {
         }
 
         repaint();
+    }
+
+    public double getHorseDistance() {
+        if (won) {
+            return StartFrame.trackLength;
+        }
+        return ((double) horseX / (double) getWidth())* StartFrame.trackLength;
+    }
+
+    public double getFinishingTime() {
+        return time;
     }
 }
