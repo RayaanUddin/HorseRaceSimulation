@@ -72,16 +72,4 @@ public class Horse {
     public boolean hasFallen() {
         return horseFallen;
     }
-
-    public static void main(String[] args) {
-        Horse horse2 = new Horse('A', "Horse2", 1.2);
-        System.out.println(horse2.getConfidence());
-
-    }
-
-
 }
-
-
-
-
