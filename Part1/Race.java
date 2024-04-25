@@ -80,6 +80,12 @@ public class Race
                 }
                 if (raceWonBy(horse)) {
                     System.out.println("And the winner is "+ horse.getName());
+                    horse.setConfidence(horse.getConfidence() * 1.1);
+                    if (horse.getConfidence() > 1.0) {
+                        horse.setConfidence(1.0);
+                    } else if (horse.getConfidence() == 0.0) {
+                        horse.setConfidence(0.1);
+                    }
                     finished = true;
                 }
                 if (allFallen && !horse.hasFallen()) {
@@ -197,7 +203,7 @@ public class Race
         multiplePrint(' ',spacesAfter);
         
         //print the | for the end of the track
-        System.out.print("| " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
+        System.out.print("| " + theHorse.getName() + " (Current confidence " + ((int)((theHorse.getConfidence()*100.0)+0.5)/100.0) + ")");
     }
         
     
@@ -215,17 +221,5 @@ public class Race
             System.out.print(aChar);
             i = i + 1;
         }
-    }
-
-    public static void main(String[] args) {
-        Race race = new Race(10, 3);
-        Horse horse1 = new Horse('A', "HorseA", 0.5);
-        Horse horse2 = new Horse('B', "HorseB", 0.4);
-        Horse horse3 = new Horse('C', "HorseC", 0.8);
-        race.addHorse(horse1, 1);
-        race.addHorse(horse2, 2);
-        race.addHorse(horse3, 3);
-        race.startRace();
-        race.startRace();
     }
 }
