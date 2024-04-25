@@ -37,5 +37,6 @@ public class Test {
             }
             race.startRace();
         }
+        scanner.close();
     }
 }
