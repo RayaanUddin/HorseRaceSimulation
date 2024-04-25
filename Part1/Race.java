@@ -38,7 +38,24 @@ public class Race
         if (laneNumber > lanes.length) {
             System.out.println("Cannot add horse to lane " + laneNumber + " because there is no such lane");
         } else {
+            if (lanes[laneNumber - 1] != null) {
+                System.out.println("Cannot add horse to lane " + laneNumber + " because there is already a horse in that lane");
+                return;
+            }
             lanes[laneNumber - 1] = theHorse;
+        }
+    }
+
+    /**
+     * Removes a horse from a lane
+     * 
+     * @param laneNumber the lane that the horse will be removed from
+     */
+    public void removeHorse(int laneNumber) {
+        if (laneNumber > lanes.length) {
+            System.out.println("Cannot remove horse from lane " + laneNumber + " because there is no such lane");
+        } else {
+            lanes[laneNumber - 1] = null;
         }
     }
     
