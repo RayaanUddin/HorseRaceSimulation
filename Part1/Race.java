@@ -6,7 +6,7 @@ import java.lang.Math;
  * for a given distance
  * 
  * @author McFarewell and Uddin
- * @version 1.0.2
+ * @version 1.1
  */
 public class Race
 {
@@ -54,12 +54,18 @@ public class Race
         
         //reset all the lanes (all horses not fallen and back to 0). 
         for (Horse horse : lanes) {
+            if (horse == null) { // Empty lane
+                continue;
+            }
             horse.goBackToStart();
         }
                       
         while (!finished) {
             //move each horse
             for (Horse horse : lanes) {
+                if (horse == null) { // Empty lane
+                    continue;
+                }
                 moveHorse(horse);
             }
                         
@@ -69,6 +75,9 @@ public class Race
             //if any of the three horses has won or all are fallen the race is finished
             boolean allFallen = true;
             for (Horse horse : lanes) {
+                if (horse == null) { // Empty lane
+                    continue;
+                }
                 if (raceWonBy(horse)) {
                     System.out.println("And the winner is "+ horse.getName());
                     finished = true;
@@ -157,8 +166,13 @@ public class Race
      * |           X                      |
      * to show how far the horse has run
      */
-    private void printLane(Horse theHorse)
-    {
+    private void printLane(Horse theHorse) {
+        if (theHorse == null) { // Empty lane
+            System.out.print('|');
+            multiplePrint(' ',raceLength+1);
+            System.out.print('|');
+            return;
+        }
         //calculate how many spaces are needed before
         //and after the horse
         int spacesBefore = theHorse.getDistanceTravelled();
@@ -172,12 +186,9 @@ public class Race
         
         //if the horse has fallen then print dead
         //else print the horse's symbol
-        if(theHorse.hasFallen())
-        {
+        if(theHorse.hasFallen()) {
             System.out.print("\u001B[31m" + '\u0078' + "\u001B[0m");
-        }
-        else
-        {
+        } else {
             System.out.print(theHorse.getSymbol());
         }
         
@@ -206,13 +217,13 @@ public class Race
     }
 
     public static void main(String[] args) {
-        Race race = new Race(10, 3);
+        Race race = new Race(10, 4);
         Horse horse1 = new Horse('A', "HorseA", 0);
         Horse horse2 = new Horse('B', "HorseB", 0);
         Horse horse3 = new Horse('C', "HorseC", 0);
         race.addHorse(horse1, 1);
         race.addHorse(horse2, 2);
-        race.addHorse(horse3, 3);
+        race.addHorse(horse3, 4);
         race.startRace();
     }
 }
