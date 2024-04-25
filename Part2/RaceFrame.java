@@ -23,7 +23,7 @@ public class RaceFrame {
         JMenuItem startRace = new JMenuItem("Start Race");
         menuBar.add(startRace);
         startRace.addActionListener(e -> {
-            startRace();
+            startRaceGUI();
         });
         JMenu optionMenu = new JMenu("Options");
         menuBar.add(optionMenu);
@@ -132,7 +132,7 @@ public class RaceFrame {
         }
     }
 
-    private void startRace() {
+    private void startRaceGUI() {
         for (HorsePanel horsePanel : horsePanels) {
             if (horsePanel != null) {
                 System.out.println("Starting Race");
