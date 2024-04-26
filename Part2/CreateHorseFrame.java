@@ -1,9 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-
+/**
+ * Create a new frame to add a horse to a lane. A sub-class of JFrame. Purpose of the class is to provide a GUI for the user
+ * to create a horse and customize it with a name, confidence level, color, and accessories. The user can then add the horse
+ * to the lane it was selected at.
+ * 
+ * @author Rayaan Uddin
+ * @version 1.0
+ * @see JFrame
+ * @see LanePanel
+ * 
+ */
 public class CreateHorseFrame extends JFrame{
+
     Color color = new Color(160, 82, 45);
+
+    /**
+     * Constructor for objects of class CreateHorseFrame
+     * Create a new frame to add a horse to a lane
+     * 
+     * @param lane The lane to add the horse to
+     */
     public CreateHorseFrame(LanePanel lane) {
         setSize(300, 350);
         getContentPane().setLayout(new BorderLayout());

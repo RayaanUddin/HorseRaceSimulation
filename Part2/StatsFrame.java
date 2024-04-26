@@ -1,13 +1,17 @@
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
+import java.io.*;
 import javax.swing.*;
 
+/**
+ * StatsFrame displays the stats of each horse within statsData. statsData is an array of StatsData objects which hold the stats of each horse typically within a race.
+ * The stats displayed are the distance travelled, speed, time taken to finish, and whether the horse won or lost.
+ * The user can save the stats to a file or open stats from a file.
+ * 
+ * @author Rayaan Uddin
+ * @version 1.0
+ * @see StatsData
+ * 
+ */
 public class StatsFrame extends JFrame{
     
     StatsData[] statsData;

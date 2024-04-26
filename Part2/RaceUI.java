@@ -1,11 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * RaceUI is a class that represents the user interface for the horse racing game. It displays all the lanes and options to initiate the race, view stats, or go back to main menu.
+ * 
+ * @author Rayaan Uddin
+ * @version 1.0
+ * @see StartUI
+ * @see StatsFrame
+ * @see LanePanel
+ * 
+ */
 public class RaceUI {
     private JFrame frame;
     private JPanel racePanel;
     LanePanel[] lanes;
 
+    /**
+     * Constructor for RaceUI objects. Creates a new RaceUI with the frame passed as an argument. If no frame is passed, a new frame is created. This should not occur as the frame should be passed from StartUI.
+     * @param frame
+     */
     public RaceUI(JFrame frame) {
         if (frame == null) {
             frame = new JFrame("Horse Racing");
@@ -51,10 +65,12 @@ public class RaceUI {
         frame.setVisible(true);
     }
 
+    // Go back to the start screen (Main Menu)
     private void goBackToStart() {
         StartUI.startFrame(this.frame).display();
     }
 
+    // Create race with lanes
     private JPanel createRace() {
         if (StartUI.laneNumber == null || StartUI.trackLength == null) {
             goBackToStart();
@@ -70,6 +86,7 @@ public class RaceUI {
         }
     }
 
+    // Starts the race
     private void startRaceGUI() {
         for (LanePanel lane : lanes) {
             if (lane.horsePanel != null) {
@@ -78,9 +95,5 @@ public class RaceUI {
                 lane.horsePanel.revalidate();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new RaceUI(null);
     }
 }

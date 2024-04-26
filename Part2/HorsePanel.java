@@ -2,6 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * HorsePanel is a JPanel that represents a horse in a race on a lane. It displays the horse within the GUI on a track, using paintComponent to draw the horse.
+ * The horse can move along the track and has a chance to fall based on its confidence level.
+ * The horse can be customized with accessories such as a saddle, horseshoes, helmet, and sword.
+ * 
+ * @author Rayaan Uddin
+ * @version 1.0
+ * @see JPanel
+ * @see Horse
+ * @see LanePanel
+ * 
+ */
 public class HorsePanel extends JPanel {
     private int horseX;
     public Horse horse;
@@ -14,6 +26,13 @@ public class HorsePanel extends JPanel {
     private LanePanel lane;
     private HashMap<String, JCheckBox> accessories;
 
+    /**
+     * Constructor for HorsePanel objects. Creates a new HorsePanel with a horse, color, lane, and accessories. The horse is reset to the start of the race.
+     * @param lane
+     * @param horse
+     * @param color
+     * @param accessories
+     */
     public HorsePanel(LanePanel lane, Horse horse, Color color, HashMap<String, JCheckBox> accessories) {
         setBackground(Color.GREEN);
         this.horse = horse;
@@ -24,6 +43,7 @@ public class HorsePanel extends JPanel {
         setVisible(true);
     }
 
+    // Reset horse to start of the race
     public void reset() {
         horseX = 0;
         time = 0;
@@ -33,6 +53,7 @@ public class HorsePanel extends JPanel {
         repaint();
     }
 
+    // Starts the race for a horse
     public void startRace() {
         reset();
         racing = true;
@@ -166,6 +187,7 @@ public class HorsePanel extends JPanel {
         repaint();
     }
 
+    // Get the distance the horse has traveled
     public double getHorseDistance() {
         if (won) {
             return StartUI.trackLength;
@@ -173,6 +195,7 @@ public class HorsePanel extends JPanel {
         return ((double) horseX / (double) getWidth())* StartUI.trackLength;
     }
 
+    // Get the finishing time of the horse
     public double getFinishingTime() {
         return time;
     }

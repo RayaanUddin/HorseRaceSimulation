@@ -1,6 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * StartUI is a class that represents the user interface for the start menu of the horse racing game. It allows the user to select the number of lanes and the length of the track before starting the race.
+ * 
+ * @author Rayaan Uddin
+ * @version 1.0
+ * @see RaceUI
+ * 
+ */
 public class StartUI {
 
     static Integer laneNumber;
@@ -9,6 +17,10 @@ public class StartUI {
     private JFrame frame;
     private JPanel panel;
 
+    /**
+     * Constructor for StartUI objects. Creates a new StartUI with the frame passed as an argument. If no frame is passed, a new frame is created.
+     * @param frame
+     */
     private StartUI(JFrame frame) {
         if (frame == null) {
             frame = new JFrame("Horse Racing");
@@ -42,6 +54,8 @@ public class StartUI {
         formPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Create lane number slider
         JLabel label = new JLabel("Number of lanes on track:");
         formPanel.add(label, gbc);
         gbc.gridx = 1;
@@ -54,6 +68,8 @@ public class StartUI {
         }
         formPanel.add(laneNumber_Slider, gbc);
         gbc.gridy = 1;
+
+        // Create track length slider
         JLabel label2 = new JLabel("Length of the track ("+trackLength+" m):");
         gbc.gridx = 0;
         formPanel.add(label2, gbc);
@@ -65,6 +81,7 @@ public class StartUI {
         });
         gbc.gridx = 1;
         formPanel.add(trackLen_Slider, gbc);
+
         // Create Button Start
         JButton startButton = new JButton("START");
         startButton.addActionListener(e -> {
@@ -82,6 +99,7 @@ public class StartUI {
         panel.add(startButton, BorderLayout.SOUTH);
     }
 
+    // Display the panel for main menu. Skeleton class.
     public void display() {
         frame.getContentPane().removeAll();
         frame.repaint();
@@ -91,6 +109,7 @@ public class StartUI {
         frame.setVisible(true);
     }
 
+    // Create a new StartUI object if it doesn't exist, otherwise return the existing object
     public static StartUI startFrame(JFrame frame) {
         if (startFrame == null) {
             return new StartUI(frame);
@@ -99,6 +118,7 @@ public class StartUI {
         }
     }
 
+    // Main method to run the program
     public static void main(String[] args) {
         new StartUI(null).display();
     }

@@ -2,6 +2,17 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.HashMap;
 
+/**
+ * LanePanel is a subclass of JPanel that represents a lane on the race. It holds the horsePanel and trackPanel for the lane and allows the user to add and remove a horse to the lane using a button.
+ * The lane has a lane number and a label to display the lane number and the horse's name and confidence level if a horse is added.
+ * 
+ * @author Rayaan Uddin
+ * @version 1.0
+ * @see JPanel
+ * @see HorsePanel
+ * @see CreateHorseFrame
+ * 
+ */
 public class LanePanel extends JPanel {
     HorsePanel horsePanel;
     private JPanel trackPanel;
@@ -10,6 +21,10 @@ public class LanePanel extends JPanel {
 
     private JButton addHorseButton;
 
+    /**
+     * Constructor for LanePanel objects. Creates a new LanePanel with a lane number and a label for the lane number. The trackPanel is created to hold the horsePanel and addHorseButton.
+     * @param laneNumber
+     */
     public LanePanel(int laneNumber) {
         super();
         System.out.println("Creating lane " + laneNumber);
@@ -30,6 +45,7 @@ public class LanePanel extends JPanel {
         trackPanel.add(addHorseButton, BorderLayout.SOUTH);
     }
 
+    // Add a horse to the lane
     public void addHorse(String horseName, double horseConfidence, Color horseColor, HashMap<String, JCheckBox> accessories) {
         if (horsePanel == null) {
             trackPanel.remove(addHorseButton);
@@ -52,6 +68,7 @@ public class LanePanel extends JPanel {
         }
     }
 
+    // Refresh the lane label to show the horse's name and confidence level or just the lane number
     public void refreshLaneLabel() {
         if (horsePanel == null) {
             laneLabel.setText("Lane " + laneNumber);
