@@ -25,6 +25,19 @@ Each time startRace() is called, the horses are moved back to the start, the con
 ### How to Run
 There is a test program included in part1 directory (**Test.java**), which demonstrates the functionality of the program, which is a interactive program that allows the user to input all the data and repeatedly start a race.
 
+To run the test program in terminal, navigate to the root directory of this project and run the following command:
+```bash
+javac -d bin Part1/*.java
+java -cp bin Test
+```
+
 ## Part 2: GUI Based Program
 
+### How to Run
+The GUI based program is located in the part2 directory. The main class is **StartUI.java**. To run the program, navigate to the root directory of this project and run the following command:
+```bash
+javac -d bin Part1/Horse.java
+javac -d bin Part2/*.java
+java -cp bin StartUI
+```
 
