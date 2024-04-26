@@ -37,7 +37,7 @@ java -cp bin Test
 The GUI based program is located in the part2 directory. The main class is **StartUI.java**. To run the program, navigate to the root directory of this project and run the following command:
 ```bash
 javac -d bin Part1/Horse.java
-javac -d bin Part2/*.java
+javac -d bin Part2/*.java -cp bin
 java -cp bin StartUI
 ```
 
