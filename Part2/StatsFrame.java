@@ -2,14 +2,14 @@ import java.awt.*;
 import javax.swing.*;
 
 public class StatsFrame {
-    public StatsFrame(Lane[] lanes) {
+    public StatsFrame(LanePanel[] lanes) {
         JFrame frame = new JFrame("Horse Statistics");
         frame.setSize(400, 500);
         frame.getContentPane().setLayout(new BorderLayout());
 
         // Get horses panels count from lanes
         int horsePanelsCount = 0;
-        for (Lane lane : lanes) {
+        for (LanePanel lane : lanes) {
             if (lane.horsePanel != null) {
                 horsePanelsCount++;
             }
@@ -24,7 +24,7 @@ public class StatsFrame {
         scrollPane.setViewportView(panel);
 
         // Add horse stats to panel
-        for (Lane lane : lanes) {
+        for (LanePanel lane : lanes) {
             if (lane.horsePanel == null) {
                 continue;
             }

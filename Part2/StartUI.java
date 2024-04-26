@@ -1,15 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class StartFrame {
+public class StartUI {
 
     static Integer laneNumber;
     static Integer trackLength = 100;
-    private static StartFrame startFrame;
+    private static StartUI startFrame;
     private JFrame frame;
     private JPanel panel;
 
-    private StartFrame(JFrame frame) {
+    private StartUI(JFrame frame) {
         if (frame == null) {
             frame = new JFrame("Horse Racing");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +70,7 @@ public class StartFrame {
             try {
                 laneNumber = laneNumber_Slider.getValue();
                 trackLength = Integer.parseInt(trackLen_textField.getText());
-                new RaceFrame(this.frame);
+                new RaceUI(this.frame);
                 return;
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this.frame, "Invalid input for track length", "Error", JOptionPane.ERROR_MESSAGE);
@@ -89,14 +89,14 @@ public class StartFrame {
         frame.setVisible(true);
     }
 
-    public static StartFrame startFrame(JFrame frame) {
+    public static StartUI startFrame(JFrame frame) {
         if (startFrame == null) {
-            return new StartFrame(frame);
+            return new StartUI(frame);
         } else {
             return startFrame;
         }
     }
     public static void main(String[] args) {
-        new StartFrame(null).display();
+        new StartUI(null).display();
     }
 }

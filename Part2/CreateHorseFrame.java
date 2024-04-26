@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-public class CreateHorse extends JFrame{
+public class CreateHorseFrame extends JFrame{
     Color color = new Color(160, 82, 45);
-    public CreateHorse(Lane lane) {
+    public CreateHorseFrame(LanePanel lane) {
         setSize(300, 350);
         getContentPane().setLayout(new BorderLayout());
         setResizable(false);

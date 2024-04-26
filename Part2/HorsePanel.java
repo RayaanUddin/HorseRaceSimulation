@@ -10,10 +10,10 @@ public class HorsePanel extends JPanel {
     private double time = 0; // Time in seconds.
     public boolean won = false;
     private Color horseColor;
-    private Lane lane;
+    private LanePanel lane;
     private HashMap<String, JCheckBox> accessories;
 
-    public HorsePanel(Lane lane, Horse horse, Color color, HashMap<String, JCheckBox> accessories) {
+    public HorsePanel(LanePanel lane, Horse horse, Color color, HashMap<String, JCheckBox> accessories) {
         setBackground(Color.GREEN);
         this.horse = horse;
         horseColor = color;
@@ -131,7 +131,7 @@ public class HorsePanel extends JPanel {
             return;
         }
 
-        horseX += (((double) getWidth()/ (double) StartFrame.trackLength) * maxSpeed) * Math.random() * horse.getConfidence();
+        horseX += (((double) getWidth()/ (double) StartUI.trackLength) * maxSpeed) * Math.random() * horse.getConfidence();
 
         if (horseX > getWidth()) {
             // if position is at the end of the track
@@ -151,8 +151,8 @@ public class HorsePanel extends JPanel {
         }
         horse.setDistance((int) getHorseDistance());
         double controller = 0.1;
-        if (getWidth() < StartFrame.trackLength) {
-            controller = ((double) getWidth()*0.01/ (double) StartFrame.trackLength);
+        if (getWidth() < StartUI.trackLength) {
+            controller = ((double) getWidth()*0.01/ (double) StartUI.trackLength);
         }
         if (Math.random() < (controller*horse.getConfidence()*horse.getConfidence())) {
             horse.fall();
@@ -165,9 +165,9 @@ public class HorsePanel extends JPanel {
 
     public double getHorseDistance() {
         if (won) {
-            return StartFrame.trackLength;
+            return StartUI.trackLength;
         }
-        return ((double) horseX / (double) getWidth())* StartFrame.trackLength;
+        return ((double) horseX / (double) getWidth())* StartUI.trackLength;
     }
 
     public double getFinishingTime() {

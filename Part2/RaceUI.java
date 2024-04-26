@@ -1,12 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class RaceFrame {
+public class RaceUI {
     private JFrame frame;
     private JPanel racePanel;
-    Lane[] lanes;
+    LanePanel[] lanes;
 
-    public RaceFrame(JFrame frame) {
+    public RaceUI(JFrame frame) {
         if (frame == null) {
             frame = new JFrame("Horse Racing");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,18 +51,18 @@ public class RaceFrame {
     }
 
     private void goBackToStart() {
-        StartFrame.startFrame(this.frame).display();
+        StartUI.startFrame(this.frame).display();
     }
 
     private JPanel createRace() {
-        if (StartFrame.laneNumber == null || StartFrame.trackLength == null) {
+        if (StartUI.laneNumber == null || StartUI.trackLength == null) {
             goBackToStart();
             return null;
         } else {
-            JPanel racePanel = new JPanel(new GridLayout(StartFrame.laneNumber, 1));
-            lanes = new Lane[StartFrame.laneNumber];
-            for (int i = 0; i < StartFrame.laneNumber; i++) {
-                lanes[i] = new Lane(i+1);
+            JPanel racePanel = new JPanel(new GridLayout(StartUI.laneNumber, 1));
+            lanes = new LanePanel[StartUI.laneNumber];
+            for (int i = 0; i < StartUI.laneNumber; i++) {
+                lanes[i] = new LanePanel(i+1);
                 racePanel.add(lanes[i]);
             }
             return racePanel;
@@ -70,7 +70,7 @@ public class RaceFrame {
     }
 
     private void startRaceGUI() {
-        for (Lane lane : lanes) {
+        for (LanePanel lane : lanes) {
             if (lane.horsePanel != null) {
                 System.out.println("Starting Race");
                 lane.horsePanel.startRace();
@@ -80,6 +80,6 @@ public class RaceFrame {
     }
 
     public static void main(String[] args) {
-        new RaceFrame(null);
+        new RaceUI(null);
     }
 }

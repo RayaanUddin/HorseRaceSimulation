@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.HashMap;
 
-public class Lane extends JPanel {
+public class LanePanel extends JPanel {
     HorsePanel horsePanel;
     private JPanel trackPanel;
     private JLabel laneLabel;
@@ -10,7 +10,7 @@ public class Lane extends JPanel {
 
     private JButton addHorseButton;
 
-    public Lane(int laneNumber) {
+    public LanePanel(int laneNumber) {
         super();
         System.out.println("Creating lane " + laneNumber);
         setLayout(new BorderLayout());
@@ -25,7 +25,7 @@ public class Lane extends JPanel {
         // Add an add horse button to the track
         addHorseButton = new JButton("Add Horse");
         addHorseButton.addActionListener(e -> {
-            new CreateHorse(this);
+            new CreateHorseFrame(this);
         });
         trackPanel.add(addHorseButton, BorderLayout.SOUTH);
     }
