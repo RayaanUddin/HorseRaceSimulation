@@ -4,7 +4,7 @@ import java.awt.*;
 public class StartUI {
 
     static Integer laneNumber;
-    static Integer trackLength = 100;
+    static Integer trackLength = 1000;
     private static StartUI startFrame;
     private JFrame frame;
     private JPanel panel;
@@ -54,22 +54,24 @@ public class StartUI {
         }
         formPanel.add(laneNumber_Slider, gbc);
         gbc.gridy = 1;
-        JLabel label2 = new JLabel("Length of the track (meters):");
+        JLabel label2 = new JLabel("Length of the track ("+trackLength+" m):");
         gbc.gridx = 0;
         formPanel.add(label2, gbc);
-        JTextField trackLen_textField = new JTextField(15);
-        if (trackLength != null) {
-            trackLen_textField.setText(trackLength.toString());
-        }
+        JSlider trackLen_Slider = new JSlider(JSlider.HORIZONTAL, 100, 1500, trackLength);
+        trackLen_Slider.setMajorTickSpacing(100);
+        trackLen_Slider.setSnapToTicks(true);
+        trackLen_Slider.addChangeListener(e -> {
+            label2.setText("Length of the track ("+trackLen_Slider.getValue()+" m):");
+        });
         gbc.gridx = 1;
-        formPanel.add(trackLen_textField, gbc);
+        formPanel.add(trackLen_Slider, gbc);
         // Create Button Start
         JButton startButton = new JButton("START");
         startButton.addActionListener(e -> {
-            System.out.println("Start Button Clicked with lane number: " + laneNumber_Slider.getValue() + " and track length: " + trackLen_textField.getText());
+            System.out.println("Start Button Clicked with lane number: " + laneNumber_Slider.getValue() + " and track length: " + trackLen_Slider.getValue());
             try {
                 laneNumber = laneNumber_Slider.getValue();
-                trackLength = Integer.parseInt(trackLen_textField.getText());
+                trackLength = trackLen_Slider.getValue();
                 new RaceUI(this.frame);
                 return;
             } catch (NumberFormatException ex) {
@@ -96,6 +98,7 @@ public class StartUI {
             return startFrame;
         }
     }
+
     public static void main(String[] args) {
         new StartUI(null).display();
     }
