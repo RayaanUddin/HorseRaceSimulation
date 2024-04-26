@@ -50,6 +50,11 @@ public class StatsFrame extends JFrame{
 
             // Horse Won?
             JLabel wonLabel = new JLabel("Horse " + (data.won ? "won" : "lost"));
+            if (data.won) {
+                wonLabel.setForeground(Color.GREEN);
+            } else {
+                wonLabel.setForeground(Color.RED);
+            }
             horseStatsPanel.add(wonLabel, BorderLayout.SOUTH);
         }
 
