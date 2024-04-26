@@ -150,11 +150,7 @@ public class HorsePanel extends JPanel {
             }
         }
         horse.setDistance((int) getHorseDistance());
-        double controller = 0.1;
-        if (getWidth() < StartUI.trackLength) {
-            controller = ((double) getWidth()*0.01/ (double) StartUI.trackLength);
-        }
-        if (Math.random() < (controller*horse.getConfidence()*horse.getConfidence())) {
+        if (Math.random() < (0.01*horse.getConfidence()*horse.getConfidence())) {
             horse.fall();
             System.out.println(horse.getName() + " has fallen!");
             lane.refreshLaneLabel();
