@@ -3,8 +3,8 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class CreateHorse extends JFrame{
-
-    public CreateHorse(RaceFrame raceFrame, int trackLane) {
+    Color color = new Color(160, 82, 45);
+    public CreateHorse(Lane lane) {
         setSize(300, 350);
         getContentPane().setLayout(new BorderLayout());
         setResizable(false);
@@ -41,7 +41,7 @@ public class CreateHorse extends JFrame{
         c.gridx = 1;
         panel.add(colorPickerButton, c);
         colorPickerButton.addActionListener(e -> {
-            Color color = JColorChooser.showDialog(this, "Choose a color", new Color(160, 82, 45));
+            color = JColorChooser.showDialog(this, "Choose a color", new Color(160, 82, 45));
             if (color == null) {
                 color = new Color(160, 82, 45);
             } else {
@@ -91,9 +91,16 @@ public class CreateHorse extends JFrame{
                 System.out.println(accessory + ": " + accessories.get(accessory).isSelected());
             }
             // Confirmation
-            int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to add this horse to lane "+trackLane+" ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to add this horse to lane?", "Confirmation", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION) {
-                raceFrame.addHorse(trackLane, horseName.getText(), horseConfidenceLevel.getValue(), colorPickerButton.getBackground(), accessories);
+                double confidence;
+                try {
+                    confidence = (double) horseConfidenceLevel.getValue() / 10.0;
+                } catch (NumberFormatException ex) {
+                    confidence = 0.0;
+                }
+                lane.addHorse(horseName.getText(), confidence, color, accessories);
+                dispose();
             }
         });
         getContentPane().add(addHorseButton, BorderLayout.SOUTH);
