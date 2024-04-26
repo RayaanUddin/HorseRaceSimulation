@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class HorsePanel extends JPanel {
     private int horseX;
@@ -7,25 +8,19 @@ public class HorsePanel extends JPanel {
     static boolean racing = false;
     static double maxSpeed = 20.0; // Maximum speed of any horse is 20m/s
     private double time = 0; // Time in seconds.
-    private JLabel laneLabel;
-    private String laneName;
     public boolean won = false;
-    private JFrame frame;
     private Color horseColor;
+    private Lane lane;
+    private HashMap<String, JCheckBox> accessories;
 
-    public HorsePanel(JLabel laneLabel, Horse horse, JFrame frame, Color color) {
+    public HorsePanel(Lane lane, Horse horse, Color color, HashMap<String, JCheckBox> accessories) {
         setBackground(Color.GREEN);
-        racing = false;
-        this.laneLabel = laneLabel;
-        laneName = laneLabel.getText();
         this.horse = horse;
-        this.frame = frame;
-        refreshLaneLabel();
         horseColor = color;
-    }
-
-    private void refreshLaneLabel() {
-        laneLabel.setText(laneName + " | " + horse.getName() + " (Current confidence " + ((int)((horse.getConfidence()*100.0)+0.5)/100.0) + ")");
+        this.lane = lane;
+        this.accessories = accessories;
+        reset();
+        setVisible(true);
     }
 
     public void reset() {
@@ -100,8 +95,34 @@ public class HorsePanel extends JPanel {
         g.fillRect(horseX, getHeight() / 2 - 5, 5, 10);
 
         // Saddle
-        g.setColor(new Color(153, 153, 102)); // Saddle brown color
-        g.fillRect(horseX + 15, getHeight() / 2 - 7, 30, 10);
+        if (accessories.get("Saddle").isSelected()) {
+            g.setColor(new Color(153, 153, 102)); // Saddle brown color
+            g.fillRect(horseX + 15, getHeight() / 2 - 7, 30, 10);
+        }
+
+        // Horseshoes
+        if (accessories.get("Horseshoes").isSelected()) {
+            g.setColor(Color.BLACK);
+            if (horse.hasFallen()) {
+                g.fillOval(horseX-25, getHeight() / 2 + 10, 10, 10);
+                g.fillOval(horseX + 65, getHeight() / 2 + 10, 10, 10);
+            } else {
+                g.fillOval(horseX + 5, getHeight() / 2 + 40, 10, 10);
+                g.fillOval(horseX + 35, getHeight() / 2 + 40, 10, 10);
+            }
+        }
+
+        // Helmet
+        if (accessories.get("Helmet").isSelected()) {
+            g.setColor(Color.BLUE);
+            g.fillRect(horseX + 45, getHeight() / 2 - 17, 20, 5);
+        }
+
+        // Sword
+        if (accessories.get("Sword").isSelected()) {
+            g.setColor(Color.GRAY);
+            g.fillRect(horseX + 65, getHeight() / 2 - 17, 5, 20);
+        }
     }
 
     // Move the horse
@@ -122,9 +143,9 @@ public class HorsePanel extends JPanel {
                 } else if (horse.getConfidence() == 0.0) {
                     horse.setConfidence(0.1);
                 }
-                refreshLaneLabel();
+                lane.refreshLaneLabel();
                 racing = false;
-                JOptionPane.showMessageDialog(frame, horse.getName() + " has won");
+                JOptionPane.showMessageDialog(lane.getTopLevelAncestor(), horse.getName() + " has won");
                 System.out.println(horse.getName() + " has won");
             }
         }
@@ -136,7 +157,7 @@ public class HorsePanel extends JPanel {
         if (Math.random() < (controller*horse.getConfidence()*horse.getConfidence())) {
             horse.fall();
             System.out.println(horse.getName() + " has fallen!");
-            refreshLaneLabel();
+            lane.refreshLaneLabel();
         }
 
         repaint();

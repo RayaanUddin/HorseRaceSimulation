@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 public class RaceFrame {
     private JFrame frame;
@@ -32,7 +31,7 @@ public class RaceFrame {
         JMenuItem getStats = new JMenuItem("Get Stats");
         optionMenu.add(getStats);
         getStats.addActionListener(e -> {
-            //StatsFrame stats = new StatsFrame(horsePanels);
+            new StatsFrame(lanes);
         });
         optionMenu.add(startFrame);
         startFrame.addActionListener(e -> {
