@@ -141,22 +141,4 @@ public class StatsFrame extends JFrame{
         }
         return null;
     }
-
-    // Encode stats data to be stored in txt file
-    private String encodeStatsDate(LanePanel[] lanes) {
-        // Encode stats data
-        // Example: HorseName1,DistanceTravelled1,Speed1,Time1,Won1;HorseName2,DistanceTravelled2,Speed2,Time2,Won2;...
-        StringBuilder encodedStats = new StringBuilder();
-        for (LanePanel lane : lanes) {
-            if (lane.horsePanel == null) {
-                continue;
-            }
-            encodedStats.append(lane.horsePanel.horse.getName()).append(",");
-            encodedStats.append(lane.horsePanel.horse.getDistanceTravelled()).append(",");
-            encodedStats.append(((int)(((lane.horsePanel.horse.getDistanceTravelled()/ lane.horsePanel.getFinishingTime())*100.0)+0.5)/100.0)).append(",");
-            encodedStats.append(lane.horsePanel.getFinishingTime()).append(",");
-            encodedStats.append(lane.horsePanel.won).append(";");
-        }
-        return encodedStats.toString();
-    }
 }
