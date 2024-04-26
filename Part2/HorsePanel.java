@@ -6,6 +6,7 @@ public class HorsePanel extends JPanel {
     private int horseX;
     public Horse horse;
     static boolean racing = false;
+    static int frameRate = 20; // 20ms
     static double maxSpeed = 20.0; // Maximum speed of any horse is 20m/s
     private double time = 0; // Time in seconds.
     public boolean won = false;
@@ -40,9 +41,9 @@ public class HorsePanel extends JPanel {
                 while (racing) {
                     move();
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(frameRate);
                         if (!horse.hasFallen()) {
-                            time = time + 0.5;
+                            time++;
                         }
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
@@ -131,7 +132,13 @@ public class HorsePanel extends JPanel {
             return;
         }
 
-        horseX += (((double) getWidth()/ (double) StartUI.trackLength) * maxSpeed) * Math.random() * horse.getConfidence();
+        // Move horse (based on confidence and speed and random)
+        if (Math.random() < horse.getConfidence()) {
+            horseX += ((double) getWidth() / (double) StartUI.trackLength) * horse.getConfidence() * maxSpeed;
+        } else {
+            horseX += ((double) getWidth() / (double) StartUI.trackLength) * horse.getConfidence() * maxSpeed * Math.random();
+        }
+        horseX += ((double) getWidth()/ (double) StartUI.trackLength) * horse.getConfidence() * maxSpeed;
 
         if (horseX > getWidth()) {
             // if position is at the end of the track
