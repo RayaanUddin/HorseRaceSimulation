@@ -31,7 +31,8 @@ public class RaceUI {
         JMenuItem getStats = new JMenuItem("Get Stats");
         optionMenu.add(getStats);
         getStats.addActionListener(e -> {
-            new StatsFrame(lanes);
+            new StatsFrame(StatsData.createStatsData(lanes));
+            
         });
         optionMenu.add(startFrame);
         startFrame.addActionListener(e -> {
